@@ -2,7 +2,6 @@ import express from "express";
 import bodyParser from "express";
 import { route } from "./route.js";
 import { mongoConnection } from "./mongoose.js";
-import { environment } from "./environment/environment.js";
 
 const start = async () => {
   const PORT = 8080;

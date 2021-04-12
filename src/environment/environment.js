@@ -1,4 +1,14 @@
 export const environment = {
-  baseUrl: "http://localhost:8080",
+  baseUrl: {
+    main: "http://localhost:8080",
+    theMovieDB: "https://api.themoviedb.org/3",
+  },
   mongoDb: "mongodb://127.0.0.1:27017/dit5404",
+  ApiKey: {
+    theMovieDB: {
+      v3: "53bd5ea72540a9003bdde8cb14cbb774",
+      v4:
+        "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1M2JkNWVhNzI1NDBhOTAwM2JkZGU4Y2IxNGNiYjc3NCIsInN1YiI6IjYwNzQ1MWM2ZDhmNDRlMDA0MTczMGY1NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.DZRQSFKkDhOAyJM-C_pbtH_XUMcuk5tgar_3e9z5aaU",
+    },
+  },
 };
