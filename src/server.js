@@ -1,18 +1,27 @@
 import express from "express";
 import bodyParser from "express";
+import { route } from "./route.js";
 import { mongoConnection } from "./mongoose.js";
 import { environment } from "./environment/environment.js";
 
-const PORT = 8080;
-const app = express();
+const start = async () => {
+  const PORT = 8080;
+  const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get(`/`, (req, res) => {
-  res.status(200).send(`Hello World`);
-});
+  app.get(`/`, (req, res) => {
+    res.status(200).send(`Hello World`);
+  });
 
-app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}...`);
-});
+  route(app);
+
+  await mongoConnection();
+
+  app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}...`);
+  });
+};
+
+start();
