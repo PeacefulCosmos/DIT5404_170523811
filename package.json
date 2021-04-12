@@ -1,0 +1,27 @@
+{
+  "name": "dit5404_170523811_movielist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.12.3",
+    "nodemon": "^2.0.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeacefulCosmos/DIT5404_170523811_MovieList.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PeacefulCosmos/DIT5404_170523811_MovieList/issues"
+  },
+  "homepage": "https://github.com/PeacefulCosmos/DIT5404_170523811_MovieList#readme"
+}
