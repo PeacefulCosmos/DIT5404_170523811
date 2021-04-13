@@ -4,8 +4,11 @@ import { environment } from "../../environment/environment.js";
 import * as tmdb from "../tmdb/tmdb.service.js";
 
 export const getAllMovies = async () => {
-  return await Movie.find();
-  // console.log(doc);
+  try {
+    return await Movie.find();
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // insert the movies document into mongodb
