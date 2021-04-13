@@ -3,11 +3,13 @@ import { Movie } from "./movies.model.js";
 import { environment } from "../../environment/environment.js";
 import * as tmdb from "../tmdb/tmdb.service.js";
 
+export const getAllMovies = async () => {
+  return await Movie.find();
+  // console.log(doc);
+};
+
 // insert the movies document into mongodb
 export const insertMovies = async () => {
-  let x = [];
-
-  // console.log(MovieModel);
   //get latest movies
   let latestMovieArr = await tmdb.getLatest();
   for (let movie of latestMovieArr) {
@@ -50,12 +52,21 @@ export const insertMovies = async () => {
       category: category,
       duration_of_movie: duration_of_movie,
     };
-    // console.log(doc);
-    const movieDoc = new Movie(doc);
-    // console.log(movieDoc);
-    await movieDoc.save((err) => {
-      if (err) return err;
-      // console.log("saved");
+
+    Movie.findOne({ movie_id: doc.movie_id }, async (err, movie) => {
+      if (err) console.log(err);
+      if (movie) {
+        console.log(
+          `Movie "${movie.title}" is duplicated! Insert not complete!`
+        );
+      } else {
+        const movieDoc = new Movie(doc);
+
+        await movieDoc.save((err) => {
+          if (err) return err;
+          console.log(`Movie "${movieDoc.title}" insert successful!`);
+        });
+      }
     });
   }
 };
