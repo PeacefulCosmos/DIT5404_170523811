@@ -1,7 +1,11 @@
 export const environment = {
   baseUrl: {
     main: "http://localhost:8080",
-    theMovieDB: "https://api.themoviedb.org/3",
+    theMovieDB: {
+      api: "https://api.themoviedb.org/3",
+      image: "https://image.tmdb.org/t/p/original",
+    },
+    youtube: "https://youtube.com",
   },
   mongoDb: "mongodb://127.0.0.1:27017/dit5404",
   ApiKey: {

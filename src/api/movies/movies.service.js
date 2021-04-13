@@ -1,21 +1,61 @@
 import axios from "axios";
+import { Movie } from "./movies.model.js";
 import { environment } from "../../environment/environment.js";
+import * as tmdb from "../tmdb/tmdb.service.js";
 
-export const getLatest = async () => {
-  let latestMovieArr = await axios.get(
-    `${environment.baseUrl.theMovieDB}/movie/popular/?api_key=${environment.ApiKey.theMovieDB.v3}`
-  );
-  console.log(latestMovieArr.data.results.length);
-  console.log(latestMovieArr.data.results);
-  return latestMovieArr.data.results;
+// insert the movies document into mongodb
+export const insertMovies = async () => {
+  let x = [];
+
+  // console.log(MovieModel);
+  //get latest movies
+  let latestMovieArr = await tmdb.getLatest();
+  for (let movie of latestMovieArr) {
+    const movie_id = movie.id;
+    const title = movie.title;
+    const rating = 0;
+    const year_of_release = new Date(movie.release_date);
+    const backdrop = `${environment.baseUrl.theMovieDB.image}${movie.backdrop_path}`;
+    const poster = `${environment.baseUrl.theMovieDB.image}${movie.poster_path}`;
+    const overview = movie.overview;
+    const language = movie.original_language;
+
+    //get movie cast and director
+    const movieCast = await tmdb.getMovieCredit(movie_id);
+    const actor = movieCast.actor;
+    const director = movieCast.director;
+
+    //get trailer youtube path
+    const trailer = `${
+      environment.baseUrl.youtube
+    }/watch?v=${await tmdb.getMovieVideoKey(movie_id)}`;
+
+    //get category and duration
+    const movieDetail = await tmdb.getMovieDetail(movie_id);
+    const category = movieDetail.category;
+    const duration_of_movie = movieDetail.duration;
+
+    const doc = {
+      movie_id: movie_id,
+      title: title,
+      rating: rating,
+      year_of_release: year_of_release,
+      backdrop: backdrop,
+      poster: poster,
+      overview: overview,
+      langauage: language,
+      actor: actor,
+      director: director,
+      trailer: trailer,
+      category: category,
+      duration_of_movie: duration_of_movie,
+    };
+    // console.log(doc);
+    const movieDoc = new Movie(doc);
+    // console.log(movieDoc);
+    await movieDoc.save((err) => {
+      if (err) return err;
+      // console.log("saved");
+    });
+  }
 };
-
-export const getMovieVideo = async (query) => {
-  let movieVideoObject = await axios.get(
-    `${environment.baseUrl.theMovieDB}/movie/${query.id}/videos?api_key=${environment.ApiKey.theMovieDB.v3}`
-  );
-
-  return movieVideoObject.data.results[0].key;
-};
-
-export const insertMovies = async () => {};

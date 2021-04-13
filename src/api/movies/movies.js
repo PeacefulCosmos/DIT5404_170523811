@@ -12,3 +12,8 @@ movieRouter.get(`/test`, async (req, res) => {
   res.status(200).send(await movieService.getMovieVideo(req.query));
   // res.send(`great!!`);
 });
+
+movieRouter.post(`/insert`, async (req, res) => {
+  await movieService.insertMovies();
+  res.status(200).send("ok");
+});
