@@ -3,7 +3,7 @@ import bodyParser from "express";
 import { route } from "./route.js";
 import cors from "cors";
 import { mongoConnection } from "./mongoose.js";
-import { exceptionHandler } from './util/exceptionHandler'
+import { exceptionHandler } from './util/exceptionHandler/index.js'
 
 // TODO: just tip only, next time install package, please add -e after npm install
 // for better package version control, e.g. npm install -e express

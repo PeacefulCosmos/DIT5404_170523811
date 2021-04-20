@@ -1,6 +1,6 @@
 import express from "express";
-import { MovieService } from './movies.service'
-import {asyncHandler} from '../../util/asyncHandler'
+import { MovieService } from './movies.service.js'
+import {asyncHandler} from '../../util/asyncHandler.js'
 
 export const movieRouter = express.Router();
 

@@ -1,4 +1,4 @@
-import { NotFoundException, UnauthorizedException } from './exception'
+import { NotFoundException, UnauthorizedException } from './exception.js'
 
 export const exceptionHandler = (exception, req, res, next) => {
     // Exception can be defined in ./exception.js or throw from library
