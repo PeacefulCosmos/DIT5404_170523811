@@ -4,6 +4,8 @@ import { environment } from "../../environment/environment.js";
 /*This is the request call to 'the movie database api'*/
 
 // get all the lastest movies
+// TODO: Please Check the return type, now: movie[] | undefined
+// TODO: remove try catch block in all service function
 export const getLatest = async () => {
   try {
     let latestMovieArr = await axios.get(

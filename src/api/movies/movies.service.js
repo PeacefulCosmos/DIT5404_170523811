@@ -1,10 +1,13 @@
 import axios from "axios";
+// TODO: file import should not include the extension .js, might have compilation error during compile time
 import { Movie } from "./movies.model.js";
 import { environment } from "../../environment/environment.js";
 import * as tmdb from "../tmdb/tmdb.service.js";
 
-export const getAllMovies = async () => {
+// TODO: the return type of this function is Movie[] | undefined, please fix the catch block
+const getAllMovies = async () => {
   try {
+    // TODO: await here is useless, only one statement here
     return await Movie.find();
   } catch (err) {
     console.log(err);
@@ -12,9 +15,13 @@ export const getAllMovies = async () => {
 };
 
 // insert the movies document into mongodb
-export const insertMovies = async () => {
+const insertMovies = async () => {
   //get latest movies
+  // TODO: use const
   let latestMovieArr = await tmdb.getLatest();
+  // TODO: TL;DR, a good function should not exceed 50 lines
+  // TODO: avoid using for / while loop in js, use latestMovieArr.forEach
+  // TODO: Please destruct movie, there are nothing that will use the entire movie object -- clean code
   for (let movie of latestMovieArr) {
     const movie_id = movie.id;
     const title = movie.title;
@@ -31,9 +38,8 @@ export const insertMovies = async () => {
     const director = movieCast.director;
 
     //get trailer youtube path
-    const trailer = `${
-      environment.baseUrl.youtube
-    }/watch?v=${await tmdb.getMovieVideoKey(movie_id)}`;
+    const trailer = `${environment.baseUrl.youtube
+      }/watch?v=${await tmdb.getMovieVideoKey(movie_id)}`;
 
     //get category and duration
     const movieDetail = await tmdb.getMovieDetail(movie_id);
@@ -73,3 +79,9 @@ export const insertMovies = async () => {
     });
   }
 };
+
+// Object.freeze is used to prevent the MovieService from being modified from other place
+export const MovieService = Object.freeze({
+  getAllMovies,
+  insertMovies
+})

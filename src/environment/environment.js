@@ -1,3 +1,5 @@
+// TODO: don't you think importing this like 'environment/environment'; is strange ?
+// Rename this file to index.js or remove environment folder
 export const environment = {
   baseUrl: {
     main: "http://localhost:8080",
