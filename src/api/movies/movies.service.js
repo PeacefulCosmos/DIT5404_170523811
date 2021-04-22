@@ -3,15 +3,8 @@ import { Movie } from './movies.model.js';
 import { environment } from '../../environment/environment.js';
 import * as tmdb from '../tmdb/tmdb.service.js';
 
-// TODO: the return type of this function is Movie[] | undefined, please fix the catch block
 const getAllMovies = async () => {
-    // TODO: remove try catch block, asyncHandler already do this for you, you can safely throw error/exception
-    try {
-        // TODO: await here is useless, only one statement here
-        return await Movie.find();
-    } catch (err) {
-        console.log(err);
-    }
+    return Movie.find();
 };
 
 // insert the movies document into mongodb

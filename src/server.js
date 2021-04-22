@@ -9,26 +9,24 @@ import { exceptionHandler } from './util/exceptionHandler/index.js';
 // for better package version control, e.g. npm install -e express
 // -e stands for exact -> express: ^4.17.1 -> express: 4.17.1
 
-const start = async () => {
-    const PORT = 8080;
-    const app = express();
+// removed start function, no need
+const PORT = 8080;
+const app = express();
 
-    app.use(cors());
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-    app.get(`/`, (req, res) => {
-        res.status(200).send(`Hello World`);
-    });
+app.get(`/`, (req, res) => {
+    res.status(200).send(`Hello World`);
+});
 
-    route(app);
+route(app);
 
-    // Error boundary
-    app.use(exceptionHandler);
+// Error boundary
+app.use(exceptionHandler);
 
-    await mongoConnection();
+// Removed await here, since this blocked the application, external connection should run in background;
+mongoConnection();
 
-    app.listen(PORT, () => console.log(`Server is listening on port ${PORT}...`));
-};
-
-start();
+app.listen(PORT, () => console.log(`Server is listening on port ${PORT}...`));
