@@ -5,6 +5,7 @@ import * as tmdb from '../tmdb/tmdb.service.js';
 
 // TODO: the return type of this function is Movie[] | undefined, please fix the catch block
 const getAllMovies = async () => {
+    // TODO: remove try catch block, asyncHandler already do this for you, you can safely throw error/exception
     try {
         // TODO: await here is useless, only one statement here
         return await Movie.find();
@@ -39,6 +40,19 @@ const insertMovies = async () => {
             duration_of_movie: movieDetail.duration,
         };
 
+        // TODO: I personally do not suggest using callback here, since this is an async function,
+
+        /**
+         * // It would be much cleaner if you do this, let the error handler handle the error
+         * const movie = await Movie.findOne({ movie_id: doc.movie_id });
+         * if(movie) {
+         *    throw new BadRequestException('Movie is exist');
+         * }
+         *
+         * const movieDoc = new Movie(doc)
+         * await movieDoc.save()
+         * return 'Movie inserted';
+         */
         Movie.findOne({ movie_id: doc.movie_id }, async (err, movie) => {
             if (err) console.log(err);
             if (movie) {
@@ -46,8 +60,10 @@ const insertMovies = async () => {
             } else {
                 const movieDoc = new Movie(doc);
 
+                // TODO: Nested callback inside callback, > google callback hell
                 await movieDoc.save((err) => {
                     if (err) return err;
+                    // TODO: Instead of logging the result, would it be better to send a response back to client ?
                     console.log(`Movie "${movieDoc.title}" insert successful!`);
                 });
             }

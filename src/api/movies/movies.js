@@ -13,6 +13,7 @@ movieRouter.get(
     }),
 );
 
+// TODO: wrap the async function with asyncHandler, or exceptionHandler will not work
 movieRouter.post(`/insert`, async (req, res) => {
     await MovieService.insertMovies();
     res.send('Insert completed');

@@ -14,7 +14,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/server.js"
+    "start": "nodemon ./src/server.js",
+    "format": "prettier --write \"src/**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/PeacefulCosmos/DIT5404_170523811_MovieList/issues"
   },
-  "homepage": "https://github.com/PeacefulCosmos/DIT5404_170523811_MovieList#readme"
+  "homepage": "https://github.com/PeacefulCosmos/DIT5404_170523811_MovieList#readme",
+  "devDependencies": {
+    "prettier": "2.2.1"
+  }
 }
