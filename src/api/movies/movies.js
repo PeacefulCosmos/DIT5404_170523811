@@ -8,13 +8,11 @@ movieRouter.get(
     `/`,
     asyncHandler(async (req, res, next) => {
         let movies = await MovieService.getAllMovies();
-        // TODO: use .json(movies) instead of send(movies);
-        res.send(movies);
+        res.json(movies);
     }),
 );
 
-// TODO: wrap the async function with asyncHandler, or exceptionHandler will not work
-movieRouter.post(`/insert`, async (req, res) => {
+movieRouter.post(`/insert`, asyncHandler(async (req, res) => {
     await MovieService.insertMovies();
     res.send('Insert completed');
-});
+}));

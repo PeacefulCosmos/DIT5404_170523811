@@ -30,28 +30,25 @@ export const getMovieCredit = async (movie_id) => {
         let movieCastArr = movieCredits.data.cast;
         // TODO: remove this, directly use in for loop, not a big performance issue
         let movieCrewArr = movieCredits.data.crew;
-        // TODO: const
-        let actor = [];
-        // TODO: const
-        let director = [];
 
-        // TODO: const
+        const actor = [];
+
+        const director = [];
+
         for (let cast of movieCastArr) {
             actor.push(cast.name);
         }
 
-        // TODO: const
         for (let crew of movieCrewArr) {
             if (crew.job === 'Director') {
                 director.push(crew.name);
             }
         }
-        // TODO: directly return the object, no need to assign to a variable
-        const movieCast = {
+
+        return {
             actor: actor,
             director: director,
         };
-        return movieCast;
     } catch (err) {
         console.log(err);
     }
@@ -61,17 +58,13 @@ export const getMovieCredit = async (movie_id) => {
 export const getMovieDetail = async (movie_id) => {
     // TODO: remove try catch block, asyncHandler already do this for you, you can safely throw error/exception
     try {
-        // TODO: declaring variable at the beginning is good, but since it only used once, so remove this
-        let duration = 0;
-        // TODO: use const, array.push does not change the reference, you can use const
-        let category = [];
+        const category = [];
 
         const result = await axios.get(
             `${environment.baseUrl.theMovieDB.api}/movie/${movie_id}?api_key=${environment.ApiKey.theMovieDB.v3}`,
         );
 
-        // TODO: const
-        duration = result.data.runtime;
+        const duration = result.data.runtime;
         // TODO: let -> const, it never change again
         for (let genre of result.data.genres) {
             category.push(genre.name);

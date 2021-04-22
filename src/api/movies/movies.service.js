@@ -28,7 +28,7 @@ const insertMovies = async () => {
             langauage: movie.original_language,
             actor: movieCast.actor,
             director: movieCast.director,
-            trailer: `${environment.baseUrl.youtube}/watch?v=${await tmdb.getMovieVideoKey(movie.id)}`,
+            trailer: `${await tmdb.getMovieVideoKey(movie.id)}`,
             category: movieDetail.category,
             duration_of_movie: movieDetail.duration,
         };
