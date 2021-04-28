@@ -3,7 +3,8 @@ const { Schema } = mongoose;
 
 const MovieSchema = new Schema({
     title: String,
-    rating: Number,
+    vote_count: Number,
+    vote_average: Number,
     category: Array,
     actor: Array,
     director: Array,

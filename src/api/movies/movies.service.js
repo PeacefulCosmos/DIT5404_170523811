@@ -2,9 +2,15 @@ import axios from 'axios';
 import { Movie } from './movies.model.js';
 import { environment } from '../../environment/environment.js';
 import * as tmdb from '../tmdb/tmdb.service.js';
+import mongoose from 'mongoose';
 
 const getAllMovies = async () => {
     return Movie.find();
+};
+
+const getFeaturedMovies = async (num) => {
+    const query = [{ $sort: { vote_average: -1 } }, { $limit: parseInt(num) }];
+    return await Movie.aggregate(query);
 };
 
 // insert the movies document into mongodb
@@ -20,7 +26,8 @@ const insertMovies = async () => {
         const doc = {
             movie_id: movie.id,
             title: movie.title,
-            rating: 0,
+            vote_count: movie.vote_count,
+            vote_average: movie.vote_average,
             year_of_release: new Date(movie.release_date),
             backdrop: `${environment.baseUrl.theMovieDB.image}${movie.backdrop_path}`,
             poster: `${environment.baseUrl.theMovieDB.image}${movie.poster_path}`,
@@ -68,4 +75,5 @@ const insertMovies = async () => {
 export const MovieService = Object.freeze({
     getAllMovies,
     insertMovies,
+    getFeaturedMovies,
 });
