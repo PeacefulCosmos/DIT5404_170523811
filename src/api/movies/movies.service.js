@@ -71,7 +71,10 @@ const insertMovies = async () => {
     });
 };
 
-const setFiveStarRating = (rating) => {};
+const setFiveStarRating = async (id, rating) => {
+    const upsertData = { $set: { vote_average: rating }, $inc: { vote_count: 1 } };
+    await Movie.update({ movie_id: id }, upsertData);
+};
 
 // Object.freeze is used to prevent the MovieService from being modified from other place
 export const MovieService = Object.freeze({

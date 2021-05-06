@@ -32,8 +32,8 @@ movieRouter.post(
 movieRouter.post(
     `/rating`,
     asyncHandler(async (req, res) => {
-        console.log(req.body);
-        const { rating } = req.body;
-        await MovieService.setFiveStarRating(rating);
+        const { movie_id, rating } = req.body;
+        await MovieService.setFiveStarRating(movie_id, rating);
+        res.send('ok');
     }),
 );
