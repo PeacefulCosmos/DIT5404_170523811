@@ -71,9 +71,12 @@ const insertMovies = async () => {
     });
 };
 
+const setFiveStarRating = (rating) => {};
+
 // Object.freeze is used to prevent the MovieService from being modified from other place
 export const MovieService = Object.freeze({
     getAllMovies,
     insertMovies,
     getFeaturedMovies,
+    setFiveStarRating,
 });

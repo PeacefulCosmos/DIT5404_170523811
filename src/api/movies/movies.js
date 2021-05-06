@@ -28,3 +28,12 @@ movieRouter.post(
         res.send('Insert completed');
     }),
 );
+
+movieRouter.post(
+    `/rating`,
+    asyncHandler(async (req, res) => {
+        console.log(req.body);
+        const { rating } = req.body;
+        await MovieService.setFiveStarRating(rating);
+    }),
+);
