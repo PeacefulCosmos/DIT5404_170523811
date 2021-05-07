@@ -5,11 +5,6 @@ import cors from 'cors';
 import { mongoConnection } from './mongoose.js';
 import { exceptionHandler } from './util/exceptionHandler/index.js';
 
-// TODO: just tip only, next time install package, please add -e after npm install
-// for better package version control, e.g. npm install -e express
-// -e stands for exact -> express: ^4.17.1 -> express: 4.17.1
-
-// removed start function, no need
 const PORT = 8080;
 const app = express();
 
@@ -26,7 +21,6 @@ route(app);
 // Error boundary
 app.use(exceptionHandler);
 
-// Removed await here, since this blocked the application, external connection should run in background;
 mongoConnection();
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}...`));
